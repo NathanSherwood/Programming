@@ -7,7 +7,9 @@ namespace GoneHome
     public class Player : MonoBehaviour
     {
         private Rigidbody rb;
-        public float movementSpeed;
+        public float acceleration = 10f;
+        public float maxVelocity = 10f;
+        
 
 
         void Start()
@@ -20,30 +22,30 @@ namespace GoneHome
             float inputH = Input.GetAxis("Horizontal");
             float inputV = Input.GetAxis("Vertical");
 
+            //Transform cam = Camera.main.transform;
             Vector3 inputDir = new Vector3(inputH, 0, inputV);
+           // inputDir = Quaternion.AngleAxis(cam.eulerAngles.y, Vector3.up) * inputDir;
 
-            Vector3 position = transform.position;
+            rb.AddForce(inputDir * acceleration);
 
-            position += inputDir * movementSpeed * Time.deltaTime;
+            float velY = rb.velocity.y;
 
-            rb.MovePosition(position);
+            Vector3 vel = rb.velocity;
 
-            //           if (Input.GetKey(KeyCode.A))
-            //           {
-            //               rb.AddForce(Vector3.left * movementSpeed * Time.deltaTime, ForceMode.Impulse);
-            //           }
-            //           if (Input.GetKey(KeyCode.D))
-            //           {
-            //              rb.AddForce(Vector3.right * movementSpeed * Time.deltaTime, ForceMode.Impulse);
-            //      }
-            //         if (Input.GetKey(KeyCode.W))
-            //         {
-            //             rb.AddForce(Vector3.forward* movementSpeed * Time.deltaTime, ForceMode.Impulse);
-            //         }
-            //         if (Input.GetKey(KeyCode.S))
-            //         {
-            //             rb.AddForce(Vector3.back * movementSpeed * Time.deltaTime, ForceMode.Impulse);
-            //         }
+            if (vel.magnitude > maxVelocity)
+            {
+                vel = vel.normalized * maxVelocity;
+            }
+
+            
+
+           if (inputH == 0 && inputV == 0)
+            {
+                vel = vel.normalized * 0;
+            }
+
+            rb.velocity = new Vector3(vel.x, velY, vel.z);
+            
         }
     }
 }
