@@ -9,12 +9,15 @@ namespace GoneHome
         private Rigidbody rb;
         public float acceleration = 10f;
         public float maxVelocity = 10f;
+        private Vector3 spawnpoint;
+        public GameObject deathParticles;
         
 
 
         void Start()
         {
             rb = GetComponent<Rigidbody>();
+            spawnpoint = transform.position;
         }
 
         void Update()
@@ -35,6 +38,7 @@ namespace GoneHome
             if (vel.magnitude > maxVelocity)
             {
                 vel = vel.normalized * maxVelocity;
+               // Debug.Log(inputH.ToString());
             }
 
             
@@ -46,6 +50,13 @@ namespace GoneHome
 
             rb.velocity = new Vector3(vel.x, velY, vel.z);
             
+        }
+
+        public void Reset()
+        {
+            GameObject clone = Instantiate(deathParticles);
+            clone.transform.position = transform.position;
+            transform.position = spawnpoint;
         }
     }
 }

@@ -15,8 +15,13 @@ namespace GoneHome
         }
         public void ResetLevel()
         {
-            Scene currentScene = SceneManager.GetActiveScene();
-            SceneManager.LoadScene(currentScene.buildIndex);
+            Enemy[] enemies = FindObjectsOfType<Enemy>();
+            for (int i = 0; i < enemies.Length; i++)
+            {
+                enemies[i].Reset();
+            }
+            Player player = FindObjectOfType<Player>();
+            player.Reset();
         }
     }
 }
