@@ -2,34 +2,16 @@
 using System.Collections.Generic;
 using UnityEngine;
 
-using UnityEngine.AI;
-
 namespace GoneHome
 {
-    public class FollowEnemy : MonoBehaviour
+    public class DestroyOnLifeTime : MonoBehaviour
     {
-        public Transform target;
-
-        private NavMeshAgent agent;
-        private Vector3 spawnPoint;
+        public float lifeTime = 5f;
 
         // Use this for initialization
         void Start()
         {
-            agent = GetComponent<NavMeshAgent>();
-
-            spawnPoint = transform.position;
-        }
-
-        // Update is called once per frame
-        void Update()
-        {
-            agent.SetDestination(target.position);
-        }
-
-        public void Reset()
-        {
-            transform.position = spawnPoint;
+            Destroy(gameObject, lifeTime);
         }
     }
 }
