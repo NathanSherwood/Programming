@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GoneHome
 {
-    public class PatrolEnemy : MonoBehaviour
+    public class PtrolEnemy : MonoBehaviour
     {
         public Transform waypointGroup;
         public float movementSpeed = 5f;
