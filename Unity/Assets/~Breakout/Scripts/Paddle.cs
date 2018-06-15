@@ -20,9 +20,13 @@ namespace Breakout
 
         void Start()
         {
-            currentBall = GetComponentInChildren<Ball>();
+            GetCurrentBall();
         }
-
+        public void GetCurrentBall()
+        {
+            currentBall = GetComponentInChildren<Ball>();
+            holdingBall = true;
+        }
         void Fire()
         {
             currentBall.transform.SetParent(null);
@@ -34,7 +38,7 @@ namespace Breakout
 
         void CheckInput()
         {
-            if (Input.GetKeyDown(KeyCode.Space))
+            if (Input.GetKeyDown(KeyCode.Space) && holdingBall == true)
             {
                 Fire();
                 holdingBall = false;
@@ -56,10 +60,7 @@ namespace Breakout
 
         void Update()
         {
-            if (holdingBall == true)
-            {
-                CheckInput();
-            }
+            CheckInput();
             Movement();
         }
     }

@@ -14,21 +14,18 @@ namespace Asteroids
         // Member Variables
         public float rotationSpeed;
         public float movementSpeed;
+        private Rigidbody2D rigid;
 
         void Movement()
         {
             // Move up
-            if (Input.GetKey(KeyCode.UpArrow))
+            if (Input.GetKey(KeyCode.UpArrow) || Input.GetKey(KeyCode.W))
             {
-                // Move the player up by movementSpeed
-                //Vector3 position = transform.position;
-                //position.y += movementSpeed * Time.deltaTime;
-                //transform.position = position;
                 transform.Translate(Vector3.up * movementSpeed * Time.deltaTime);
             }
 
             // Move down
-            if (Input.GetKey(KeyCode.DownArrow))
+            if (Input.GetKey(KeyCode.DownArrow) || Input.GetKey(KeyCode.S))
             {
                 transform.Translate(Vector3.down * movementSpeed * Time.deltaTime);
             }
@@ -37,15 +34,18 @@ namespace Asteroids
         void Rotation()
         {
             // Rotate Right
-            if (Input.GetKey(KeyCode.RightArrow))
+            if (Input.GetKey(KeyCode.RightArrow)|| Input.GetKey(KeyCode.D))
             {
                 transform.Rotate(Vector3.back, rotationSpeed * Time.deltaTime);
             }
+            if (Input.GetKey(KeyCode.LeftArrow) || Input.GetKey(KeyCode.A))
+            {
+                transform.Rotate(Vector3.forward, rotationSpeed * Time.deltaTime);
+            }
         }
 
-        // TASK: Make a 'Rotation()' function and put rotation code in it
 
-        // Update is called once per frame
+
         void Update()
         {
             // Call 'Movement()' function
